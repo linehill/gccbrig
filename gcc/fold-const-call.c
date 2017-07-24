@@ -1049,7 +1049,8 @@ fold_const_call_1 (combined_fn fn, tree type, tree arg)
   if (real_cst_p (arg))
     {
       gcc_checking_assert (SCALAR_FLOAT_MODE_P (arg_mode));
-      if (mode == arg_mode)
+      /* For -fftz-math subnormals are not folded correctly.  */
+      if (mode == arg_mode && !flag_ftz_math)
 	{
 	  /* real -> real.  */
 	  REAL_VALUE_TYPE result;
@@ -1299,7 +1300,8 @@ fold_const_call_1 (combined_fn fn, tree type, tree arg0, tree arg1)
       && real_cst_p (arg1))
     {
       gcc_checking_assert (SCALAR_FLOAT_MODE_P (arg0_mode));
-      if (mode == arg0_mode)
+      /* For -fftz-math subnormals are not folded correctly.  */
+      if (mode == arg0_mode && !flag_ftz_math)
 	{
 	  /* real, real -> real.  */
 	  REAL_VALUE_TYPE result;
@@ -1494,7 +1496,8 @@ fold_const_call_1 (combined_fn fn, tree type, tree arg0, tree arg1, tree arg2)
       && real_cst_p (arg2))
     {
       gcc_checking_assert (SCALAR_FLOAT_MODE_P (arg0_mode));
-      if (mode == arg0_mode)
+      /* For -fftz-math subnormals are not folded correctly.  */
+      if (mode == arg0_mode && !flag_ftz_math)
 	{
 	  /* real, real, real -> real.  */
 	  REAL_VALUE_TYPE result;
